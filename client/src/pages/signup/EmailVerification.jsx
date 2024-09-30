@@ -1,12 +1,14 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-// import userEmailVerification from '../../hooks/userEmailVerification'; // Correct the import statement
+import { useAuthContext } from "../../context/AuthContext"; // Assuming your AuthContext provides authUser
 
 const EmailVerification = () => {
   const { username, token } = useParams();
   const [isValidateToken, setisValidateToken] = useState(false);
+  
+  const { authUser } = useAuthContext(); // Get the authUser from AuthContext
+  const navigate = useNavigate(); // Initialize navigate for redirection
 
   const verifyEmailToken = async (username, emailToken) => {
     console.log("testing function");
@@ -14,8 +16,6 @@ const EmailVerification = () => {
       username: username,
       emailToken: emailToken,
     };
-
-    console.log(usernameAndToken);
 
     try {
       const response = await fetch("/api/auth/verifyEmail", {
@@ -26,21 +26,23 @@ const EmailVerification = () => {
         body: JSON.stringify(usernameAndToken),
       });
       const data = await response.json();
-      console.log("29", data);
       const responseStatus = data.status;
-      console.log("30", responseStatus);
       if (responseStatus === "okay") {
         setisValidateToken(true);
       }
-      console.log(isValidateToken);
     } catch (error) {
       console.error("Error verifying email token:", error);
     }
   };
 
   useEffect(() => {
-    verifyEmailToken(username, token);
-  }, []);
+    // Check if the user is authenticated, if not, redirect to /login
+    if (!authUser) {
+      navigate("/login");
+    } else {
+      verifyEmailToken(username, token);
+    }
+  }, [authUser, username, token, navigate]);
 
   return (
     <div>
@@ -52,7 +54,7 @@ const EmailVerification = () => {
             </h1>
             <div>
               <Link
-                to="/"
+                to="/login"
                 className="text-sm flex items-center justify-center hover:underline hover:text-blue-600 mt-2 inline-block my-auto"
               >
                 Click here to {"login"}

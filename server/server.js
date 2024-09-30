@@ -1,6 +1,7 @@
 import path from "path";
 import express from "express";
 import dotenv from "dotenv";
+
 dotenv.config();
 import cookieParser from "cookie-parser";
 
@@ -13,6 +14,7 @@ import connectToMongoDb from "./db/connectToMongoDb.js";
 import { app, server } from "./socket/socket.js";
 
 const PORT = process.env.PORT || 5001;
+
 
 const __dirname = path.resolve();
 

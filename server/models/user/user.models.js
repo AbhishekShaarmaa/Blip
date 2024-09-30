@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema(
       required:true,
       unique:true,
     },
+   
     confirmedEmail:{
       type:Boolean , 
       default:false,
@@ -26,6 +27,12 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: 6,
     },
+    updatePasswordToken:{
+      type:String,
+      
+      minlength:6
+    },
+    updatePasswordExpires: Date,
     gender: {
       type: String,
       required: true,
@@ -35,6 +42,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    
     // createdAt, updatedAt => Member since <createdAt>
   },
   { timestamps: true }

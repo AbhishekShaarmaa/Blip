@@ -1,15 +1,16 @@
-import  Mongoose  from "mongoose";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
-dotenv.config({path:'../.env'})
+import User from "../models/user/user.models.js"; // Adjust the path as necessary
 
+dotenv.config({ path: '../.env' });
 
-const connectToMongoDb =async()=>{
-    try {
-        await Mongoose.connect(process.env.MONGO_DB_URI);
-        console.log('db connected successfuly');
-    } catch (error) {
-        console.log(error.message);
-    }
-}
+const connectToMongoDb = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_DB_URI);
+     console.log('connected')
+  } catch (error) {
+    console.log('Error connecting to MongoDB:', error.message);
+  }
+};
 
-export default connectToMongoDb
+export default connectToMongoDb;

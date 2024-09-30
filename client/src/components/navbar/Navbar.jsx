@@ -2,6 +2,7 @@ import LogoutButton from "./LogoutButton";
 import HomeButton from "./HomeButton";
 import FriendsButton from "./FriendsButton";
 import AddFriendButton from "./AddFriendButton";
+import AiChatBot from "./AiChatBot";
 
 export default function Navbar() {
   return (
@@ -40,7 +41,10 @@ export default function Navbar() {
             Users
           </span>
         </div>
-
+         
+        <div className="mt-auto">
+          <AiChatBot />
+        </div>
         <div className="mt-auto">
           <LogoutButton />
         </div>

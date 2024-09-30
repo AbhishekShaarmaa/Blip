@@ -4,13 +4,19 @@ const MemberSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   role: {
     type: String,
-    enum: ["admin", "member"], // Using enum for roles
+    enum: ["admin", "member"],
     required: true,
   },
-  permissions: [{ type: String }],
+  permissions: {
+    type: [String], 
+    default: function() {
+      return this.role === 'admin' 
+        ? ['read', 'write']  
+        : ['read'];           
+    },
+  },
   joined_at: { type: Date, default: Date.now },
 });
-
 const MessageSchema = new mongoose.Schema({
 
   senderId: { type: String, required: true },

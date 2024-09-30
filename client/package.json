@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.7.2",
+    "@google/generative-ai": "^0.20.0",
+    "axios": "^1.7.7",
     "blip": "file:..",
     "blip-messenger": "file:..",
+    "dotenv": "^16.4.5",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

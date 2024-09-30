@@ -23,12 +23,16 @@ export const createGroup = async(req,res)=>{
 export const addMember = async(req,res)=>{
     try {
         const { id:groupId } = req.params;
-        const { userId, role, permissions } = req.body;
+        const { userId, role} = req.body;
         const group = await Group.findOne({ groupId });
         if (!group) {
           return res.status(404).json({ error: 'Group not found' });
         }
+        const permissions = role === 'admin' ? ['read', 'write'] : ['read'];
+
+       
         group.members.push({ userId, role, permissions });
+       
         await group.save();
         res.status(200).json(group);
       } catch (error) {
@@ -68,6 +72,7 @@ export const sendMessage = async(req,res)=>{
 export const groupDetails = async(req,res)=>{
     try {
         const { id: groupId } = req.params;
+        console.log("75",groupId)
         const group = await Group.findOne(groupId );
         if (!group) {
           return res.status(404).json({ error: 'Group not found' });
@@ -78,5 +83,19 @@ export const groupDetails = async(req,res)=>{
       }
 
 }
+
+
+// grty all groups are present 
+
+export const getAllGroups = async (req, res) => {
+  try {
+    const groups = await Group.find(); // Should fetch all groups
+    res.status(200).json(groups);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+
 
 export default router;
