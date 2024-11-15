@@ -8,7 +8,7 @@ export default function GroupModal({ isOpen, onClose }) {
   const [groupName, setGroupName] = useState("");
   // const [participants, setParticipants] = useState();
   const { conversations } = useGetConversations();
-  // console.log("9", conversations[0].__id);
+  console.log("9", conversations);
   const [selected, setSelected] = useState([]);
   console.log("13", selected);
   const count = selected.length;
@@ -68,7 +68,6 @@ export default function GroupModal({ isOpen, onClose }) {
               <div className="flex">{count}/50</div>
             </div>
 
-            {/* Search bar component */}
             <div className="w-full flex gap-2">
               <input
                 type="text"
@@ -79,34 +78,38 @@ export default function GroupModal({ isOpen, onClose }) {
             </div>
           </div>
 
-          {/* Friend list component */}
-          <div className="overflow-y-auto w-full  max-h-[200px]">
-            {conversations.map((item) => (
-              <button
-                key={item._id}
-                className={`flex items-center w-full gap-4 p-2 mb-3 hover:bg-gray-700 rounded-md ${
-                  selected.includes(item._id)
-                    ? "bg-green-500 hover:bg-green-500 "
-                    : "bg-transparent hover:bg-gray-700 "
-                }`}
-                onClick={() => toggleSelection(item._id)}
-              >
-                {/* Profile picture */}
-                <div className="w-12 h-12 rounded-full overflow-h_idden">
-                  <img
-                    src={item.profilePic}
-                    alt="user avatar"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+          <div className="overflow-y-auto w-full max-h-[200px]">
+            {conversations.map((item) => {
+              // Skip if the item is null or undefined
+              if (!item) return null;
 
-                {/* User info */}
-                <div className="flex flex-col items-start flex-1">
-                  <p className="font-bold  text-gray-200">{item.fullName}</p>
-                  {/* Add additional details if needed */}
-                </div>
-              </button>
-            ))}
+              return (
+                <button
+                  key={item._id}
+                  className={`flex items-center w-full gap-4 p-2 mb-3 hover:bg-gray-700 rounded-md 
+                    ${
+                      selected.includes(item._id)
+                        ? "bg-green-500 hover:bg-green-500 "
+                        : "bg-transparent hover:bg-gray-700 "
+                    }`}
+                  onClick={() => toggleSelection(item._id)}
+                >
+                  {/* Profile Picture */}
+                  <div className="w-12 h-12 rounded-full overflow-hidden">
+                    <img
+                      src={item.profilePic || "https://via.placeholder.com/150"}
+                      alt="user avatar"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+
+                  {/* User Info */}
+                  <div className="flex flex-col items-start flex-1">
+                    <p className="font-bold text-gray-200">{item.fullName}</p>
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
 
