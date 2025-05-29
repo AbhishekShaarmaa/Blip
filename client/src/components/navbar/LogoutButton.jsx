@@ -4,10 +4,11 @@ import useLogout from "../../hooks/useLogout";
 export default function LogoutButton() {
   const { logout } = useLogout();
   return (
-    <div >
+    <div className="pr-2">
       <BiLogOut
-        className="w-6 h-6 text-white cursor-pointer"
+        className="w-8 h-8 text-white cursor-pointer"
         onClick={logout}
+        title="Logout"
       />
     </div>
   );

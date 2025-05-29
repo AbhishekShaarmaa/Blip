@@ -34,17 +34,21 @@ export default function SearchInput() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center gap-2">
+    <form
+      onSubmit={handleSubmit}
+      className="flex items-center justify-between border border-gray-700 p-2"
+    >
       <input
         type="text"
-        placeholder={
-          selectFriends ? "Global Search..." : "Search from friends..."
-        }
-        className="input input-bordered rounded-full"
+        placeholder="Search..."
+        className="input input-bordered rounded-full flex-grow"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <button type="submit" className="btn btn-circle bg-green-500 text-white">
+      <button
+        type="submit"
+        className="btn btn-circle bg-green-500 text-white ml-4"
+      >
         <IoSearchSharp className="w-6 h-6 outline-none" />
       </button>
     </form>

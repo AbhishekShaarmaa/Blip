@@ -1,12 +1,12 @@
 import { useAuthContext } from "../../context/AuthContext";
 import useConversation from "../../zustand/useConversation";
-import { extractTime } from "../../utils/extractTime";
+import  moment from 'moment';
 
 export default function Message({ message }) {
   const { authUser } = useAuthContext();
   const { selectedConversation } = useConversation();
   const fromMe = message.senderId === authUser._id;
-  const formattedTime = extractTime(message.createdAt);
+  const formattedTime = moment(message.createdAt).calendar();
   const chatClassName = fromMe ? "chat-end" : "chat-start";
   const profilePic = fromMe
     ? authUser.profilePic

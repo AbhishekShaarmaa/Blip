@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const useGetGlobalUsers = () => {
-  const [loading, setLoading] = useState(false);
-  const [allUsers, setAllUsers] = useState([]);
+  const [globalLoading, setGlobalLoading] = useState(false);
+  const [globalUsers, setGlobalUsers] = useState([]);
 
   //fetching conversation data from api
   useEffect(() => {
     const getConversations = async () => {
-      setLoading(true);
+      setGlobalLoading(true);
       try {
         const res = await fetch("/api/getUsers/getGlobalUsers");
 
@@ -17,18 +17,17 @@ const useGetGlobalUsers = () => {
           throw new Error(data.error);
         }
         //set data into conversation state
-        setAllUsers(data);
+        setGlobalUsers(data);
       } catch (error) {
         toast.error(error.message);
       } finally {
-        setLoading(false);
+        setGlobalLoading(false);
       }
     };
     getConversations();
-    //added a dependency here
   }, []);
 
-  return { loading, allUsers };
+  return { globalLoading, globalUsers };
 };
 
 export default useGetGlobalUsers;

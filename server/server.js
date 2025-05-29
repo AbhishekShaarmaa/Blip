@@ -25,18 +25,15 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/getUsers", userRoutes);
 app.use("/api/groups", groupRoutes);
 
-// app.get("/" , (req , res)=>{
-//     res.send("hello world//////")
-// })
-
 app.use(express.static(path.join(__dirname, "/client/dist")));
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
 
-server.listen(PORT, () => {
-  connectToMongoDb();
+server.listen(PORT, async() => {
+  await connectToMongoDb();
   console.log(`server running on port ${PORT}`);
+  console.log("system up and running");
 });
  

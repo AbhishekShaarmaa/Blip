@@ -10,7 +10,6 @@ export default function GroupModal({ isOpen, onClose }) {
   const { conversations } = useGetConversations();
   console.log("9", conversations);
   const [selected, setSelected] = useState([]);
-  console.log("13", selected);
   const count = selected.length;
   const toggleSelection = (_id) => {
     setSelected((prevSelected_ids) =>

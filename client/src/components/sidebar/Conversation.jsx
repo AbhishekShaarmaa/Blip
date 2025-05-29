@@ -10,7 +10,7 @@ export default function Conversation({ conversation, lastIdx, emoji }) {
   return (
     <>
       <div
-        className={`flex gap-2 items-center hover:bg-black rounded p-2 pr-4 py-1 cursor-pointer 
+        className={`flex gap-2 items-center hover:bg-gray-700 rounded p-2 pr-4 py-1 cursor-pointer border border-gray-900
           ${isSelected ? "bg-black" : ""}
         `}
         onClick={() => setSelectedConversation(conversation)}
